@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, render_template, request
 import sqlite3
 
+with open('ip-port.json') as f:
+    di = json.load(f)
+
 app = Flask(__name__)
 @app.route('/')
 def index():
@@ -66,4 +69,4 @@ def get_json_header():
 
 if __name__=='__main__':
     app.debug=True
-    app.run(host='172.18.134.60', port=5000)
+    app.run(host=di['ip'], port=di['port'])
