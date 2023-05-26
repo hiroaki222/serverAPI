@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template, request
 import json
 import sqlite3
 
-with open('ip-port.json') as f:
+with open('data.json') as f:
     di = json.load(f)
 
 app = Flask(__name__)
