@@ -22,7 +22,7 @@ def get():
     
     return jsonify(data)
 
-# curl -X POST -d "number=26&name=mahrez" http://172.18.134.60:5000/UpdateItem
+# curl -X POST -d "number=5&name=john" http://172.18.134.60:5000/UpdateItem
 @app.route('/UpdateItem', methods=['POST'])
 def update():
     con = sqlite3.connect('TestDB.db')
