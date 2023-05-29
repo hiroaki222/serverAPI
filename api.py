@@ -25,6 +25,7 @@ def index():
 @app.route('/GetData')
 def get():
     f = flag('r')
+    
     rt = {"flag": f}
     return jsonify(rt)
 
