@@ -5,10 +5,10 @@ from selenium.webdriver.common.by import By
 
 options = Options()
 #options.add_argument('--headless')
-path = '/opt/google/chrome/google-chrome'
+path = '/opt/google/chrome'
 driver = webdriver.Chrome(executable_path=path, options=options)
 driver.implicitly_wait(5)
 
-driver.get('google.com')
-element = driver.find_elements(By.TAG, 'h1')
+driver.get('https://www.google.com/')
+element = driver.find_elements(By.CSS_SELECTOR, 'h1')
 print(element)
