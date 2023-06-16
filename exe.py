@@ -9,5 +9,8 @@ from selenium.webdriver.common.by import By
 import scraper
 import sqlite3
 
-#print(scraper.weather())
-print(scraper.railway())
+weather = scraper.weather()
+diagram = scraper.railway()
+weather.update(diagram)
+j = json.dumps(weather, indent=2, ensure_ascii=False )
+print(j)
