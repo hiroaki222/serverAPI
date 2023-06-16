@@ -1,5 +1,12 @@
-from flask import Flask, jsonify, render_template, request, session
+import chromedriver_binary
+import datetime
+from flask import Flask, jsonify, render_template, request
 import json
+import re
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import scraper
 import sqlite3
 
 def flag(s):
@@ -22,14 +29,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/GetData')
+@app.route('/data')
 def get():
     f = flag('r')
     
     rt = {"flag": f}
     return jsonify(rt)
 
-@app.route('/Detect', methods = ['POST'])
+@app.route('/detect', methods = ['POST'])
 def detect():
     tmp = flag('r')
     if request.form['flag'] != str(flag('r')):
