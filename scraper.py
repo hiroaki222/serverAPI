@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import sqlite3
+from time import sleep
 
 def weather():
     options = Options()
@@ -124,11 +125,12 @@ def news():
     driver.quit()
     return export
 
-
-weather = weather()
-diagram = railway()
-news = news()
-weather.update(diagram)
-weather.update(news)
-with open('data.json', 'w') as f:
-    json.dump(weather, indent=2, ensure_ascii=False )
+for i in range(100):
+    w = weather()
+    d = railway()
+    n = news()
+    w.update(d)
+    w.update(n)
+    with open('data.json', 'w') as f:
+        json.dump(w, f, indent=2, ensure_ascii=False )
+    sleep(60)
