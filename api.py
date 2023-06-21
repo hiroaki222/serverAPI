@@ -1,40 +1,49 @@
 import chromedriver_binary
-import datetime
 from flask import Flask, jsonify, render_template, request
 import json
-import re
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-import scraper
-import sqlite3
 
 with open('config.json') as f:
     di = json.load(f)
 
 def data():
-    weather = scraper.weather()
-    diagram = scraper.railway()
-    news = scraper.news()
-    weather.update(diagram)
-    weather.update(news)
-    return json.dumps(weather, indent=2, ensure_ascii=False )
+    with open('data.json') as f:
+        data = json.load(f)
+    return data
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/data', methods = ['GET'])
-def data():
-    return jsonify(data())
+@app.route('/info', methods = ['GET'])
+def info():
+    #return data()
+    return jsonify({"hello" : "こんにちは"})
 
-@app.route('/detect', methods = ['PUT'])
+@app.route('/detect', methods = ['GET'])
 def detect():
-    
-    rt = {'Status' : 'Success'}
-    return jsonify(rt)
+    with open('config.json') as f:
+        conf = json.load(f)
+    return jsonify({"flag" : conf['flag']})
+
+@app.route('/detecter', methods = ['PUT'])
+def detecter():
+    req = request.args
+    flag = req.get("flag")
+    print(flag)
+    with open('config.json') as f:
+        j = json.load(f)
+    if flag == '1':
+        j['flag'] = '1'
+    elif flag == '0':
+        j['flag'] = '0'
+    else:
+        return jsonify({'Status' : 'error'})
+    with open('config.json', 'w') as f:
+        json.dump(j, f, indent=2, ensure_ascii=False)
+    return jsonify({'Status' : 'Success'})
 
 if __name__=='__main__':
     app.debug=True
