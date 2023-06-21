@@ -124,7 +124,7 @@ def news():
     export["article"] = temp
     driver.quit()
     return export
-
+print("active")
 for i in range(100):
     w = weather()
     d = railway()
@@ -132,5 +132,5 @@ for i in range(100):
     w.update(d)
     w.update(n)
     with open('data.json', 'w') as f:
-        json.dump(w, f, indent=2, ensure_ascii=False )
+        json.dump(w, f, indent=2, ensure_ascii=False)
     sleep(60)
