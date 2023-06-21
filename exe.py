@@ -11,6 +11,8 @@ import sqlite3
 
 weather = scraper.weather()
 diagram = scraper.railway()
+news = scraper.news()
 weather.update(diagram)
+weather.update(news)
 j = json.dumps(weather, indent=2, ensure_ascii=False )
 print(j)

@@ -9,19 +9,16 @@ from selenium.webdriver.common.by import By
 import scraper
 import sqlite3
 
-def flag(s):
-    with open('data.json') as f:
-        di = json.load(f)
-    match s:
-        case 'r':
-            return di['flag']
-        case 'w':
-            di['flag'] = di['flag']  ^ 1
-            with open('data.json', 'w') as f:
-                json.dump(di, f, indent=2, ensure_ascii=False)
-            return
-    return di
-di = flag('')
+with open('config.json') as f:
+    di = json.load(f)
+
+def data():
+    weather = scraper.weather()
+    diagram = scraper.railway()
+    news = scraper.news()
+    weather.update(diagram)
+    weather.update(news)
+    return json.dumps(weather, indent=2, ensure_ascii=False )
 
 app = Flask(__name__)
 
@@ -29,19 +26,13 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/data')
-def get():
-    f = flag('r')
-    
-    rt = {"flag": f}
-    return jsonify(rt)
+@app.route('/data', methods = ['GET'])
+def data():
+    return jsonify(data())
 
-@app.route('/detect', methods = ['POST'])
+@app.route('/detect', methods = ['PUT'])
 def detect():
-    tmp = flag('r')
-    if request.form['flag'] != str(flag('r')):
-        flag('w')
-
+    
     rt = {'Status' : 'Success'}
     return jsonify(rt)
 

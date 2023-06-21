@@ -40,7 +40,7 @@ def weather():
     tmp.append(weather)
     tmp.append(umbrella)
 
-    export = {
+    export = {"weatherForecast" : {
         'update' : update.replace('\u3000', ' '),
         'weather' : weather[0],
         'temperature' : weather[1],
@@ -49,8 +49,8 @@ def weather():
         'direction' : weather[4],
         'speed' : weather[5],
         'umbrella' : umbrella
-    }
-
+    }}
+    driver.quit()
     return export
 
 def railway():
@@ -65,7 +65,7 @@ def railway():
     url += dt.strftime('%Y%m') + '&d=' + dt.strftime('%d') + '&hh=' + dt.strftime('%H')
 
     options = Options()
-    #options.add_argument('--headless')
+    options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(5)
 
@@ -104,6 +104,31 @@ def railway():
         diagram[f"{st[0]}"] = tmp
         st[0] += 1
     diagram = {"diagram" : diagram}
+    driver.quit()
     return diagram
 
-railway()
+def news():
+    option = Options()
+    #option.add_argument('--headless')
+    driver = webdriver.Chrome(options=option)
+    driver.implicitly_wait(10)
+    driver.get("https://twitter.com/news_line_me")
+    export = {}
+    export["article"] = ""
+    temp = {}
+    for i in range(1, 7):
+        tmp = {}
+        tmp[str(i)] = driver.find_element(By.XPATH, f'/html/body/div[1]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div/section/div/div/div/div/div[{i}]/div/div/article/div/div/div[2]/div[2]/div[2]/div/span').text
+        temp.update(tmp)
+    export["article"] = temp
+    driver.quit()
+    return export
+
+
+weather = weather()
+diagram = railway()
+news = news()
+weather.update(diagram)
+weather.update(news)
+with open('data.json', 'w') as f:
+    json.dump(weather, indent=2, ensure_ascii=False )
