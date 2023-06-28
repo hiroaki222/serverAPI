@@ -11,7 +11,7 @@ def data():
     return data
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+app.json.ensure_ascii = False
 
 @app.route('/')
 def index():
@@ -19,8 +19,8 @@ def index():
 
 @app.route('/info', methods = ['GET'])
 def info():
-    #return data()
-    return jsonify({"hello" : "こんにちは"})
+    return data()
+    #return jsonify({"hello" : "こんにちは"})
 
 @app.route('/detect', methods = ['GET'])
 def detect():
