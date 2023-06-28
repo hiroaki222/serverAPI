@@ -133,4 +133,5 @@ for i in range(100):
     w.update(n)
     with open('data.json', 'w') as f:
         json.dump(w, f, indent=2, ensure_ascii=False)
+    print('done')
     sleep(60)
