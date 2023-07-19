@@ -15,8 +15,7 @@ app.json.ensure_ascii = False
 
 @app.route('/')
 def index():
-    return "<p>Hello, World!</p>"
-    #return render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/info', methods = ['GET'])
 def info():
