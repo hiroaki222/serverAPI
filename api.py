@@ -17,7 +17,7 @@ app.json.ensure_ascii = False
 def index():
     return render_template('index.html')
 
-@app.route('/info', methods = ['GET'])
+""" @app.route('/info', methods = ['GET'])
 def info():
     return data()
 
@@ -42,7 +42,7 @@ def detecter():
         return jsonify({'Status' : 'error'})
     with open('config.json', 'w') as f:
         json.dump(j, f, indent=2, ensure_ascii=False)
-    return jsonify({'Status' : 'Success'})
+    return jsonify({'Status' : 'Success'}) """
 
 """ if __name__=='__main__':
     app.debug=True
