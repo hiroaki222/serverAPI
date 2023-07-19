@@ -1,4 +1,3 @@
-
 import chromedriver_binary
 import datetime
 import json
