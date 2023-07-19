@@ -1,4 +1,4 @@
-import chromedriver_binary
+#import chromedriver_binary
 from flask import Flask, jsonify, render_template, request
 import json
 
