@@ -45,6 +45,6 @@ def detecter():
         json.dump(j, f, indent=2, ensure_ascii=False)
     return jsonify({'Status' : 'Success'})
 
-if __name__=='__main__':
+""" if __name__=='__main__':
     app.debug=True
-    app.run(host=di['ip'], port=di['port'])
+    app.run(host=di['ip'], port=di['port']) """
