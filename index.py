@@ -28,7 +28,7 @@ def detect():
         conf = json.load(f)
     return jsonify({"flag" : conf['flag']})
 
-@app.route('/detecter', methods = ['PUT'])
+@app.route('/detector', methods = ['PUT'])
 def detecter():
     req = request.args
     flag = req.get("flag")
